@@ -34,6 +34,8 @@ cd PowerVim
 sh install.zsh
 ```
 
+## 安装+运行可能遇见的问题
+
 * 在安装的过程中 ubuntu 操作系统 会出现 这样的问题`Syntax error: "(" unexpected`，是系统语言问题,
 看下面issue，已经给出解决办法
 
