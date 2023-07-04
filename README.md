@@ -1,6 +1,8 @@
 # [English Version](./docs/README-en.md)
 
-# PowerVim
+# PowerVim(modified)
+
+原作者：<https://github.com/youngyangyang04/PowerVim>
 
 PowerVim，一个真正强大的vim。
 
