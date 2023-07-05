@@ -1,13 +1,16 @@
-" Hello，我是PowerVim的作者，程序员Carl，欢迎关注我的微信公众号：代码随想录 
-"
-" 定义快捷键的前缀，即<Leader>
+" Hello，我是PowerVim的作者，程序员Carl，欢迎关注我的微信公众号：代码随想录 "
+
+" 定义快捷键的前缀，即<Leader>"
 let mapleader=";"
 
-" pathogen plugin manager
+" pathogen plugin manager"
 
 call pathogen#infect()
-" syntax on
+" syntax on"
 filetype plugin indent on
+
+"在处理未保存或只读文件的时候，弹出确认"
+set confirm
 
 "缩进指示线"
 let g:indentLine_enabled = 1
@@ -15,7 +18,7 @@ let g:indentLine_char='┆'
 
 "高亮搜索关键词"
 let g:ackhighlight = 1
-"修改快速预览窗口高度为15
+"修改快速预览窗口高度为15"
 let g:ack_qhandler = "botright copen 15"
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
@@ -39,7 +42,7 @@ set history=50		" keep 50 lines of command line history
 set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
 set incsearch		" do incremental searching
-"设置非兼容模式
+"设置非兼容模式"
 set nocp
 
 "set encoding=utf-8
@@ -56,30 +59,30 @@ set guioptions-=T
 set expandtab
 
 let curpwd = getcwd()
-" vim自身命令行模式智能补全
+" vim自身命令行模式智能补全"
 set wildmenu
 
-" 不产生.swp文件
+" 不产生.swp文件"
 set noswapfile
 
-" 禁止光标闪烁
+" 禁止光标闪烁"
 " set gcr=a:block-blinkon0
 
-" ack搜索时不打开第一个搜索文件
+" ack搜索时不打开第一个搜索文件"
 map <Leader>fw :Ack! <Space>
-" AckFile不打开第一个搜索文件
+" AckFile不打开第一个搜索文件"
 map <Leader>ff :AckFile!<Space>
-" 定义快捷键 关闭当前分割窗口
+" 定义快捷键 关闭当前分割窗口"
 nmap <Leader>q :q<CR>
 " 定义快捷键
 nmap <Leader>w :w<CR>
-" 删除光标所在单词
+" 删除光标所在单词"
 nmap e daw
 " close TAB
 nmap tabc :tabc <CR>
 " go to previous table
 map gp :tabp <CR>
-" 定义快捷键 跳转到光标所在关键词的定义处
+" 定义快捷键 跳转到光标所在关键词的定义处"
 " here are multiple matches, show me a list of all the matching tags 
 nmap <Leader>gt g<C-]>
 " 定义快捷键 跳回原关键词 与 ;gr 配合使用
@@ -244,7 +247,7 @@ autocmd filetype c nnoremap <F1> :w <bar> exec '!gcc --std=c11 -pthread '.shelle
 autocmd filetype dot nnoremap <F1> :w <bar> exec '!dot -Tsvg sqlparse.dot > sqlparse.svg'<CR>
 autocmd Filetype java nnoremap <F1> :w <bar> exec '!javac '.shellescape('%'). ' -d ./bin'<CR>
 autocmd filetype java nnoremap <F2> :w <bar> exec '!java -cp ./bin '.shellescape('%:r')<CR>
-
+:map! <C-c> <ESC>:q<CR>
 
 let g:tlist_markdown_settings = 'markdown;h:Headlins'
 "新建.c,.h,.sh,.Java文件，自动插入文件头
@@ -254,59 +257,70 @@ func SetTitle()
     "如果文件类型为.sh文件
     if &filetype == 'sh'
         call setline(1,"\#########################################################################")
-        call append(line("."),   "\# File Name:    ".expand("%"))
-        call append(line(".")+1, "\# Author:       RosenYin")
-        call append(line(".")+2, "\# mail:         l2356838399@163.com")
-        call append(line(".")+3, "\# Created Time: ".strftime("%c"))
-        call append(line(".")+4, "\#########################################################################")
-        call append(line(".")+5, "\#!/bin/zsh")
-        call append(line(".")+6, "")
+        call append(line("."),   "\# File Name:              ".expand("%"))
+        call append(line(".")+1, "\# Author:                 RosenYin")
+        call append(line(".")+2, "\# mail:                   l2356838399@163.com")
+        call append(line(".")+3, "\# Created Time:           ".strftime("%c"))
+        call append(line(".")+4, "\# This file last updated: ".strftime("%c"))
+        call append(line(".")+5, "\#########################################################################")
+        call append(line(".")+6, "\#!/bin/zsh")
+        call append(line(".")+7, "")
     else
-        call setline(1, "/* ************************************************************************")
-        call append(line("."),   "> File Name:     ".expand("%"))
-        call append(line(".")+1, "> Author:        RosenYin")
-        call append(line(".")+2, "> Mail:          l2356838399@163.com")
-        call append(line(".")+3, "> Created Time:  ".strftime("%c"))
-        call append(line(".")+4, "> Description:   ")
-        call append(line(".")+5, " ************************************************************************/")
-        call append(line(".")+6, "")
+        call setline(1, "/*************************************************************************")
+        call append(line("."),   "# File Name:              ".expand("%"))
+        call append(line(".")+1, "# Author:                 RosenYin")
+        call append(line(".")+2, "# Mail:                   l2356838399@163.com")
+        call append(line(".")+3, "# Created Time:           ".strftime("%c"))
+        call append(line(".")+4, "# This file last updated: ".strftime("%c"))
+        call append(line(".")+5, "# Description:   ")
+        call append(line(".")+6, "**************************************************************************/")
+        call append(line(".")+7, "")
     endif
 
     if expand("%:e") == 'c'
-        call append(line(".")+7, "#include<stdio.h>")
-        call append(line(".")+8, "#include<string.h>")
-        call append(line(".")+9, "#include<math.h>")
-        call append(line(".")+10, "")
+        call append(line(".")+8, "#include<stdio.h>")
+        call append(line(".")+9, "#include<string.h>")
+        call append(line(".")+10, "#include<math.h>")
+        call append(line(".")+11, "")
     endif
     if expand("%:e") == 'cpp'
-        call append(line(".")+7, "#include<iostream>")
-        call append(line(".")+8, "#include<string>")
-        call append(line(".")+9, "using namespace std;")
-        call append(line(".")+10, "")
+        call append(line(".")+8, "#include<iostream>")
+        call append(line(".")+9, "#include<string>")
+        call append(line(".")+10, "using namespace std;")
+        call append(line(".")+11, "")
     endif
     
     if expand("%:e") == 'cc'
-        call append(line(".")+7, "#include<iostream>")
-        call append(line(".")+8, "using namespace std;")
-        call append(line(".")+9, "")
+        call append(line(".")+8, "#include<iostream>")
+        call append(line(".")+9, "using namespace std;")
+        call append(line(".")+10, "")
     endif
     if expand("%:e") == 'h'
-        call append(line(".")+7, "#ifndef _".toupper(expand("%:r"))."_H")
-        call append(line(".")+8, "#define _".toupper(expand("%:r"))."_H")
-        call append(line(".")+9, "")
-        call append(line(".")+10, "#endif")
+        call append(line(".")+8, "#ifndef _".toupper(expand("%:r"))."_H")
+        call append(line(".")+9, "#define _".toupper(expand("%:r"))."_H")
+        call append(line(".")+10, "")
+        call append(line(".")+11, "#endif")
     endif
     if expand("%:e") == 'hpp'
-        call append(line(".")+7, "#ifndef _".toupper(expand("%:r"))."_HPP")
-        call append(line(".")+8, "#define _".toupper(expand("%:r"))."_HPP")
-        call append(line(".")+9, "")
-        call append(line(".")+10, "#endif")
+        call append(line(".")+8, "#ifndef _".toupper(expand("%:r"))."_HPP")
+        call append(line(".")+9, "#define _".toupper(expand("%:r"))."_HPP")
+        call append(line(".")+10, "")
+        call append(line(".")+11, "#endif")
     endif
 
-    "新建文件后，自动定位到文件末尾
+    "新建文件后，自动定位到文件末尾"
     autocmd BufNewFile * normal G
 endfunc
 
+" 自动更新时间戳"
+"利用以下自动命令，将在保存文件时，自动更新文件中的时间戳信息。首先将查找以“# This file last updated:”开头的行，然后将“:”之后的时间替换为当前时间。"
+function! UpdateTimestamp ()
+  '[,']s/^# This file last updated: \zs.*/\= strftime("%c") /
+endfunction
+augroup TimeStamping
+  autocmd!
+  autocmd BufWritePre,FileWritePre,FileAppendPre * :call UpdateTimestamp()
+augroup END
 
 " shortcut for markdown
 " 创建时间快捷键for markdown
